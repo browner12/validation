@@ -19,6 +19,22 @@ $ composer require browner12/validation
 
 - Add `browner12\validation\ValidationServiceProvider` to your `config/app.php` list of service providers.
 
+## Generator
+
+If you wish to use the included generator, open `app/Console/Kernel.php` and add it to the commands property.
+
+``` php
+protected $commands = [
+    \browner12\validation\ValidatorMakeCommand::class,
+];
+```
+
+To create a validator call
+
+``` sh
+php artisan make:validator UserValidator
+```
+
 ## Usage
 
 Create validators that extends `browner12\validation\Validator`. For example, if you have a 'Product' model, you could create a `ProductValidator`. While they can be placed anywhere that can be autoloaded, a good suggestion is `app/Validation`.
