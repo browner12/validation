@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This package is a wrapper built around Laravel's validation
+This package is a wrapper built around Laravel's validation.
 
 ## Install
 
