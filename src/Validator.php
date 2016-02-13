@@ -56,5 +56,4 @@ abstract class Validator
     {
         return $this->errors;
     }
-
 }
