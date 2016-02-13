@@ -1,4 +1,4 @@
-<?php namespace browner12\validation;
+<?php namespace browner12\validation\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
