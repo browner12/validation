@@ -33,7 +33,7 @@ class ValidationMakeCommand extends GeneratorCommand
      */
     protected function parseName($name)
     {
-        return ucwords(camel_case($name)) . 'Validation';
+        return ucwords(camel_case($name));
     }
 
     /**
@@ -54,6 +54,17 @@ class ValidationMakeCommand extends GeneratorCommand
      */
     protected function getPath($name)
     {
-        return base_path() . '/Validation/' . str_replace('\\', '/', $name) . '.php';
+        return app_path() . '/Validation/' . str_replace('\\', '/', $name) . '.php';
+    }
+
+    /**
+     * Get the default namespace for the class.
+     *
+     * @param  string  $rootNamespace
+     * @return string
+     */
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace.'\Validation';
     }
 }
