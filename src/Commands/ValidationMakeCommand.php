@@ -26,17 +26,6 @@ class ValidationMakeCommand extends GeneratorCommand
     protected $type = 'Validator';
 
     /**
-     * Parse the name and format according to the root namespace.
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function parseName($name)
-    {
-        return ucwords(camel_case($name));
-    }
-
-    /**
      * Get the stub file for the generator.
      *
      * @return string
