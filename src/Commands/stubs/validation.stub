@@ -1,6 +1,8 @@
 <?php namespace DummyNamespace;
 
-class DummyClass
+use browner12\validation\Validator;
+
+class DummyClass extends Validator
 {
     /**
      * @var array
