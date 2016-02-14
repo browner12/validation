@@ -32,18 +32,7 @@ class ValidationMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../stubs/validation.stub';
-    }
-
-    /**
-     * Get the destination class path.
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function getPath($name)
-    {
-        return app_path() . '/Validation/' . str_replace('\\', '/', $name) . '.php';
+        return __DIR__ . '/stubs/validation.stub';
     }
 
     /**
