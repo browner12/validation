@@ -16,7 +16,7 @@ class ValidationMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new validation definition.';
+    protected $description = 'Create a new validation definition';
 
     /**
      * The type of class being generated.
