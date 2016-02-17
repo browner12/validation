@@ -15,10 +15,6 @@ This package is a wrapper built around Laravel's validation.
 $ composer require browner12/validation
 ```
 
-## Setup
-
-- Add `browner12\validation\ValidationServiceProvider` to your `config/app.php` list of service providers.
-
 ## Generator
 
 If you wish to use the included generator, open `app/Console/Kernel.php` and add it to the commands property.
@@ -29,7 +25,7 @@ protected $commands = [
 ];
 ```
 
-To create a validator call
+Then use Artisan to generate a new validator.
 
 ``` sh
 php artisan make:validator UserValidator
@@ -37,7 +33,7 @@ php artisan make:validator UserValidator
 
 ## Usage
 
-Create validators that extends `browner12\validation\Validator`. For example, if you have a 'Product' model, you could create a `ProductValidator`. While they can be placed anywhere that can be autoloaded, a good suggestion is `app/Validation`.
+Validators extend the abstract `browner12\validation\Validator`, which contains all of the methods necessary to perform validation. The only thing you need to define are your rules. For example, if you have a 'Product' model, you could create a `ProductValidator`. While they can be placed anywhere that can be autoloaded, a good suggestion is `app/Validation`.
 
 ``` php
 class ProductValidator extends Validator
@@ -54,23 +50,63 @@ class ProductValidator extends Validator
 }
 ```
 
-To use the validator, you can create a new object, or use automatic dependency injection. Then you will pass it the data to be validated, and the name of the rule set to use.
+As you can see, you can have multiple rule sets per validator. To use the validator you create a new object, or use dependency injection (we use DI in the example). Then you will pass in the data to be validated, and the name of the rule set to use.
 
 ``` php
-$validator = new ProductValidator();
+class ProductService()
+{
+    /**
+     * constructor
+     */
+    public function __construct(ProductValidator $validator)
+    {
+        $this->validator = $validator;
+    }
 
-$data = [
-    'name'  => 'Sprocket',
-    'price' => '299',
-];
-
-if ($validator->isValid($data, 'store')) {
-
-    //data is good
+    /**
+     * store product
+     *
+     * @param array $input
+     */
+    public function store(array $input)
+    {
+        if ($this->validator->isValid($input, 'store')) {
+    
+            //data is good, save to storage
+        }
+    
+        throw new ValidationException('Storing a product failed.', $validator->getErrors());
+    }
 }
+```
 
-else {
-    throw new ValidationException('Storing a product failed.', $validator->getErrors());
+This code will most often go in some type of service, like the previous example, so it can be used throughout the site.
+
+Finally, your controller will call the service, and handle any errors that are thrown.
+
+``` php
+class ProductController
+{
+    /**
+     * store
+     */
+    public function store()
+    {
+        try {
+        
+            $data = [
+                'name'  => $_POST['name'],
+                'price' => $_POST['price'],
+            ];
+        
+            $productService->store($data);
+        }
+        
+        catch (ValidationException $e){
+        
+            //handle the exception
+        }
+    }
 }
 ```
 
