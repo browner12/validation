@@ -2,21 +2,21 @@
 
 use Illuminate\Console\GeneratorCommand;
 
-class ValidationMakeCommand extends GeneratorCommand
+class ValidatorMakeCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:validation';
+    protected $name = 'make:validator';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new validation definition';
+    protected $description = 'Create a new validator class';
 
     /**
      * The type of class being generated.
@@ -32,7 +32,7 @@ class ValidationMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/validation.stub';
+        return __DIR__ . '/stubs/validator.stub';
     }
 
     /**
