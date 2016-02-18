@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This package is a wrapper built around Laravel's validation.
+This is a validation package built to complement Laravel's included validation. One of the main benefits of this package is a separate file houses the reusable rules for your validation.
 
 ## Install
 
@@ -33,9 +33,11 @@ php artisan make:validator UserValidator
 
 ## Usage
 
-Validators extend the abstract `browner12\validation\Validator`, which contains all of the methods necessary to perform validation. The only thing you need to define are your rules. For example, if you have a 'Product' model, you could create a `ProductValidator`. While they can be placed anywhere that can be autoloaded, a good suggestion is `app/Validation`.
+Validators extend the abstract `browner12\validation\Validator`, which contains all of the methods necessary to perform validation. The only thing you need to define are your rules. For example, if you have a 'Product' model, you could create a `ProductValidator`. While they *can* be placed anywhere that can be autoloaded, a good suggestion is `app/Validation`.
 
 ``` php
+namespace App\Validation;
+
 class ProductValidator extends Validator
 {
     protected static $store = [
@@ -50,9 +52,14 @@ class ProductValidator extends Validator
 }
 ```
 
-As you can see, you can have multiple rule sets per validator. To use the validator you create a new object, or use dependency injection (we use DI in the example). Then you will pass in the data to be validated, and the name of the rule set to use.
+As you can see, you can have multiple rule sets per validator. To use the validator, create a new `Validator` object, or use dependency injection (we use DI in the example). Then pass in the data to be validated, and the name of the rule set to use. A good practice is to use a dedicated class (sometimes called a service) so it can be reused throughout the site.
 
 ``` php
+namespace App\Services;
+
+use App\Validation\ProductValidator;
+use browner12\validation\ValidationException;
+
 class ProductService()
 {
     /**
@@ -80,13 +87,22 @@ class ProductService()
 }
 ```
 
-This code will most often go in some type of service, like the previous example, so it can be used throughout the site.
-
 Finally, your controller will call the service, and handle any errors that are thrown.
 
 ``` php
+use App\Services\ProductService;
+use browner12\validation\ValidationException;
+
 class ProductController
 {
+    /**
+     * constructor
+     */
+    public function __construct(ProductService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * store
      */
@@ -99,7 +115,7 @@ class ProductController
                 'price' => $_POST['price'],
             ];
         
-            $productService->store($data);
+            $this->service->store($data);
         }
         
         catch (ValidationException $e){
