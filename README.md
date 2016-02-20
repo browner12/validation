@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is a validation package built to complement Laravel's included validation. One of the main benefits of this package is a separate file houses the reusable rules for your validation.
+This is a validation package built to complement Laravel's included validation. One of the main benefits of this package is a separate file houses the reusable rules for validation.
 
 ## Install
 
@@ -52,7 +52,7 @@ class ProductValidator extends Validator
 }
 ```
 
-As you can see, you can have multiple rule sets per validator. To use the validator, create a new `Validator` object, or use dependency injection (we use DI in the example). Then pass in the data to be validated, and the name of the rule set to use. A good practice is to use a dedicated class (sometimes called a service) so it can be reused throughout the site.
+As you can see, validators can contain multiple rule sets. To use the validator, create a new `Validator` object, or use dependency injection (DI is used in the example). Pass in the data to be validated and the name of the rule set to use. A good place to handle the validation is in a dedicated class (sometimes referred to as a Service) so it can be reused throughout the site.
 
 ``` php
 namespace App\Services;
