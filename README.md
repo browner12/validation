@@ -15,23 +15,23 @@ This is a validation package built to complement Laravel's included validation. 
 $ composer require browner12/validation
 ```
 
-## Generator
+## Setup
 
-If you wish to use the included generator, open `app/Console/Kernel.php` and add it to the commands property.
+Add the service provider to the providers array in  `config/app.php`.
 
 ``` php
-protected $commands = [
-    \browner12\validation\ValidatorMakeCommand::class,
+'providers' => [
+    browner12\validation\ValidationServiceProvider::class,
 ];
 ```
 
-Then use Artisan to generate a new validator.
+## Usage
+
+Use Artisan to generate a new validator.
 
 ``` sh
 php artisan make:validator UserValidator
 ```
-
-## Usage
 
 Validators extend the abstract `browner12\validation\Validator`, which contains all of the methods necessary to perform validation. The only thing you need to define are your rules. For example, if you have a 'Product' model, you could create a `ProductValidator`. While they *can* be placed anywhere that can be autoloaded, a good suggestion is `app/Validation`.
 
