@@ -42,8 +42,10 @@ abstract class Validator
             return true;
         }
 
-        //failed validation
+        //set errors
         $this->errors = $validator->getMessageBag();
+
+        //return
         return false;
     }
 
