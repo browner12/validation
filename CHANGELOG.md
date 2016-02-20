@@ -1,20 +1,14 @@
 # Changelog
 
-All Notable changes to `browner12\validation` will be documented in this file.
+All notable changes to `browner12\validation` will be documented in this file.
 
-## NEXT - YYYY-MM-DD
+Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+
+## [UNRELEASED]
+
+## 1.0.0 - 2016-02-19
 
 ### Added
-- Nothing
+- new validation package
 
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
+[unreleased]: https://github.com/browner12/validation/compare/v1.0.0...HEAD
