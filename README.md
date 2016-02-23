@@ -60,10 +60,12 @@ namespace App\Services;
 use App\Validation\ProductValidator;
 use browner12\validation\ValidationException;
 
-class ProductService()
+class ProductService
 {
     /**
      * constructor
+     *
+     * @param \App\Validation\ProductValidator $validator
      */
     public function __construct(ProductValidator $validator)
     {
@@ -80,9 +82,10 @@ class ProductService()
         if ($this->validator->isValid($input, 'store')) {
     
             //data is good, save to storage
+            return true;
         }
     
-        throw new ValidationException('Storing a product failed.', $validator->getErrors());
+        throw new ValidationException('Storing a product failed.', $this->validator->getErrors());
     }
 }
 ```
