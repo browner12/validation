@@ -76,6 +76,7 @@ class ProductService
      * store product
      *
      * @param array $input
+     * @throws \browner12\validation\ValidationException
      */
     public function store(array $input)
     {
